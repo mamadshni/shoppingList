@@ -26,11 +26,18 @@ export class RecipeService {
     )
   ];
 
-  getRecipes() {
+  getRecipes(): Recipe[] {
     return this.recipes.slice();
   }
+  getRecipe(i: number): Recipe {
+    return this.recipes[i];
+  }
 
-  addIngredients(ingredients: Ingredient[]) {
+  getIndexRecipe(recipe: Recipe): number {
+    return this.recipes.indexOf(recipe);
+  }
+
+  addIngredients(ingredients: Ingredient[]): void {
     this.shoppingListService.addItems(ingredients);
   }
 }
