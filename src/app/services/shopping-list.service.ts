@@ -15,16 +15,30 @@ export class ShoppingListService {
 
   constructor() {}
 
-  getItems() {
+  getItems(): Ingredient[] {
     return this.ingredients.slice();
   }
 
-  addItem(item: Ingredient) {
-    this.ingredients.push(item);
-    this.changedIngredients.next(this.ingredients.slice());
+  getItem(i: number): Ingredient {
+    return this.ingredients.slice()[i];
   }
-  addItems(items: Ingredient[]) {
+
+  changeItem(index: number, item: Ingredient): void {
+    this.ingredients.splice(index, 1, item);
+    this.changedIngredients.next(this.getItems());
+  }
+
+  deleteItem(index: number): void {
+    this.ingredients.splice(index, 1);
+    this.changedIngredients.next(this.getItems());
+  }
+
+  addItem(item: Ingredient): void {
+    this.ingredients.push(item);
+    this.changedIngredients.next(this.getItems());
+  }
+  addItems(items: Ingredient[]): void {
     this.ingredients.push(...items);
-    this.changedIngredients.next(this.ingredients.slice());
+    this.changedIngredients.next(this.getItems());
   }
 }
