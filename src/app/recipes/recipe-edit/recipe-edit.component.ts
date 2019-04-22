@@ -24,7 +24,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.recipeForm = new FormGroup({
       name: new FormControl(null, Validators.required),
-      imageUrl: new FormControl(null, Validators.required),
+      imageUrl: new FormControl(null, [Validators.required]),
       description: new FormControl(null),
       ingredients: new FormArray([])
     });
@@ -85,7 +85,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     } else {
       this.recipeService.addRecipe(recipe);
     }
-    this.router.navigate(['/recipes', 'new']);
+    this.onCancel();
+  }
+
+  check() {
+    console.log(this.recipeForm.get('imageUrl'));
+  }
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onDeleteIngredient(index: number) {

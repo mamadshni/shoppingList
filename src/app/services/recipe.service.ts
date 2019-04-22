@@ -39,6 +39,17 @@ export class RecipeService {
     this.changeRecipes.next(this.getRecipes());
   }
 
+  deleteRecipe(recipe: Recipe): void {
+    this.recipes.splice(this.getIndexRecipe(recipe), 1);
+    this.changeRecipes.next(this.getRecipes());
+  }
+
+  restoreRecipes(recipes: Recipe[]) {
+    this.recipes.splice(0, this.recipes.length);
+    this.recipes.push(...recipes);
+    this.changeRecipes.next(this.getRecipes());
+  }
+
   getRecipes(): Recipe[] {
     return this.recipes.slice();
   }
